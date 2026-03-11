@@ -463,6 +463,65 @@
   }
   .clear-btn:hover { border-color: var(--red); color: var(--red); }
 
+  /* Question type guidance */
+  .qtype-section { margin-bottom: 20px; }
+  .qtype-note {
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .qtype-note strong { font-style: normal; color: var(--ink); font-weight: 600; }
+  .qtype-categories { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .qtype-cat-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 5px 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.04em;
+  }
+  .qtype-cat-btn:hover, .qtype-cat-btn.active {
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+  }
+  .qtype-examples {
+    display: none; flex-wrap: wrap; gap: 7px;
+    padding: 12px 14px;
+    background: var(--paper2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 4px;
+  }
+  .qtype-examples.open { display: flex; }
+  .qtype-example-chip {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 13px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.83rem;
+    color: var(--ink);
+    cursor: pointer;
+    font-style: italic;
+    transition: all 0.15s;
+    line-height: 1.5;
+  }
+  .qtype-example-chip:hover {
+    background: var(--gold); color: white; border-color: var(--gold); font-style: normal;
+  }
+  .qtype-warn {
+    font-size: 0.74rem; color: var(--muted); font-style: italic;
+    margin-top: 8px; padding: 8px 12px;
+    border-left: 2px solid var(--border);
+    line-height: 1.6;
+  }
+  .qtype-warn .not-suitable { color: var(--red); font-style: normal; font-weight: 600; }
+
   @media (max-width: 560px) {
     .reading-grid { grid-template-columns: 1fr; }
     .reading-item { border-right: none; border-bottom: 1px solid var(--border); }
@@ -488,6 +547,68 @@
     <div>Date <span id="live-date">—</span></div>
     <div>Time <span id="live-time">—</span></div>
     <div>Hour <span id="live-hour">—</span></div>
+  </div>
+
+  <!-- Question Type Guidance -->
+  <div class="qtype-section">
+    <label class="input-label">Question Type</label>
+    <p class="qtype-note">Liu Ren is for <strong>present-moment, specific, small decisions</strong>. Tap a category for example questions — click any example to use it.</p>
+    <div class="qtype-categories">
+      <button class="qtype-cat-btn" onclick="toggleCat(this, 'work')">💼 Work &amp; Career</button>
+      <button class="qtype-cat-btn" onclick="toggleCat(this, 'relationship')">💍 Relationships</button>
+      <button class="qtype-cat-btn" onclick="toggleCat(this, 'decision')">⚖️ Decisions</button>
+      <button class="qtype-cat-btn" onclick="toggleCat(this, 'finance')">💰 Money</button>
+      <button class="qtype-cat-btn" onclick="toggleCat(this, 'health')">🌿 Health</button>
+      <button class="qtype-cat-btn" onclick="toggleCat(this, 'seeking')">🔍 Lost &amp; Seeking</button>
+    </div>
+
+    <div class="qtype-examples" id="cat-work">
+      <span class="qtype-example-chip" onclick="useQ(this)">Should I send this proposal to my client today?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Will this meeting with my boss go well?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Should I speak up about this issue at work today?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Is this a good time to approach my manager about a raise?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Will this project get approved?</span>
+    </div>
+
+    <div class="qtype-examples" id="cat-relationship">
+      <span class="qtype-example-chip" onclick="useQ(this)">Should I reach out to this person today?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Will this conversation with my partner go smoothly?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Is this a good time to address this issue with someone close to me?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Will things improve between me and this person?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Should I agree to meet this person today?</span>
+    </div>
+
+    <div class="qtype-examples" id="cat-decision">
+      <span class="qtype-example-chip" onclick="useQ(this)">Should I say yes to this opportunity?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Is this a good time to make this move?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Should I go ahead with this plan today?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Will this decision work out in my favour?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Should I take this offer or wait?</span>
+    </div>
+
+    <div class="qtype-examples" id="cat-finance">
+      <span class="qtype-example-chip" onclick="useQ(this)">Should I make this purchase today?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Is this a good time to negotiate this deal?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Will this transaction go through smoothly?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Should I proceed with this financial commitment now?</span>
+    </div>
+
+    <div class="qtype-examples" id="cat-health">
+      <span class="qtype-example-chip" onclick="useQ(this)">Should I go to the doctor today about this issue?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Will this health matter resolve itself soon?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Is it a good time to start this new health routine?</span>
+    </div>
+
+    <div class="qtype-examples" id="cat-seeking">
+      <span class="qtype-example-chip" onclick="useQ(this)">Where is the item I lost?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Will I find what I am looking for?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Will this missing thing come back to me?</span>
+      <span class="qtype-example-chip" onclick="useQ(this)">Is there any hope of recovering what I lost?</span>
+    </div>
+
+    <div class="qtype-warn">
+      <span class="not-suitable">Not suitable for Liu Ren:</span> Major life decisions (career changes, marriage), past event analysis, long-term forecasts, or questions with life-changing consequences — use BaZi or Qi Men instead.
+    </div>
   </div>
 
   <!-- Input -->
@@ -602,6 +723,40 @@ const CH_HOURS = [
   { no:11,zh:"戌時", en:"Dog",     start:19, end:21 },
   { no:12,zh:"亥時", en:"Pig",     start:21, end:23 },
 ];
+
+// ── QUESTION TYPE HELPERS ────────────────────────────────────────────
+
+let activecat = null;
+
+function toggleCat(btn, cat) {
+  const panel = document.getElementById('cat-' + cat);
+  if (activecat === cat) {
+    // close
+    panel.classList.remove('open');
+    btn.classList.remove('active');
+    activecat = null;
+  } else {
+    // close any open
+    if (activecat) {
+      document.getElementById('cat-' + activecat).classList.remove('open');
+      document.querySelectorAll('.qtype-cat-btn').forEach(b => b.classList.remove('active'));
+    }
+    panel.classList.add('open');
+    btn.classList.add('active');
+    activecat = cat;
+  }
+}
+
+function useQ(chip) {
+  document.getElementById('question').value = chip.textContent;
+  // close the panel
+  if (activecat) {
+    document.getElementById('cat-' + activecat).classList.remove('open');
+    document.querySelectorAll('.qtype-cat-btn').forEach(b => b.classList.remove('active'));
+    activecat = null;
+  }
+  document.getElementById('question').focus();
+}
 
 // ── CALCULATION ──────────────────────────────────────────────────────
 
